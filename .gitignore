@@ -1,0 +1,10 @@
+.env
+node_modules
+dist
+*.db
+planning/
+public/stockfish-18-lite-single.js
+public/stockfish-18-lite-single.wasm
+.DS_Store
+.claude
+CLAUDE.md

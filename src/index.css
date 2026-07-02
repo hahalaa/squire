@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Squire design system (see .claude/context/frontend-engineer.md):
+ *   Background #1a1a2e · Accent #c9a84c · Text #e8e4d9 · Secondary #4a4a6a
+ *   Display font: Playfair Display · Body font: Inter
+ * Squire is a dark-first app, so the base (:root) tokens are the dark theme.
+ * Fonts are declared as variables here; the actual @font-face / font loading
+ * is wired in a later UI ticket.
+ */
+@layer base {
+  :root {
+    --font-display: "Playfair Display", serif;
+    --font-body: "Inter", sans-serif;
+
+    --background: 240 28% 14%; /* #1a1a2e */
+    --foreground: 44 25% 88%; /* #e8e4d9 */
+
+    --card: 240 24% 18%;
+    --card-foreground: 44 25% 88%;
+
+    --popover: 240 24% 18%;
+    --popover-foreground: 44 25% 88%;
+
+    --primary: 44 54% 54%; /* #c9a84c accent gold */
+    --primary-foreground: 240 28% 14%;
+
+    --secondary: 240 18% 35%; /* #4a4a6a */
+    --secondary-foreground: 44 25% 88%;
+
+    --muted: 240 18% 24%;
+    --muted-foreground: 44 12% 70%;
+
+    --accent: 44 54% 54%;
+    --accent-foreground: 240 28% 14%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 44 25% 88%;
+
+    --border: 240 18% 28%;
+    --input: 240 18% 28%;
+    --ring: 44 54% 54%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}

@@ -4,5 +4,19 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" },
     { "path": "./tsconfig.server.json" }
-  ]
+  ],
+  // This root config compiles nothing itself ("files": []) — actual
+  // type-checking happens in the referenced configs above, each with its
+  // own compilerOptions. baseUrl/paths are duplicated here anyway because
+  // some tools (notably the shadcn CLI, via the `tsconfig-paths` package)
+  // read the root tsconfig.json directly and do not follow TS project
+  // references into tsconfig.app.json — without this, `npx shadcn add`
+  // can't resolve the "@/*" alias and writes generated files to a literal
+  // "./@/..." directory instead of src/components/ui/.
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }

@@ -24,6 +24,14 @@
     "noUncheckedSideEffectImports": true,
 
     /* Path alias */
+    // baseUrl is required for the shadcn CLI to resolve the "@/*" alias to
+    // src/components/ui/ (confirmed against shadcn-ui/ui#5957) — without it,
+    // `npx shadcn add` writes generated files to a literal "./@/..."
+    // directory instead. baseUrl is deprecated as of TS 5.0 (slated for
+    // removal in 7.0) but nothing currently forces its removal; "5.0" is
+    // the value the installed typescript@5.9.3 actually accepts for
+    // ignoreDeprecations here — re-check this if TS is ever upgraded past 6.x.
+    "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

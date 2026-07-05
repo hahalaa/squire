@@ -1,11 +1,17 @@
 import { useUser, UserButton } from "@clerk/react";
 import { Onboarding } from "@/auth/Onboarding";
+import { BoardView } from "@/board/BoardView";
+import { useChessGame } from "@/board/useChessGame";
 
 // Rendered for signed-in users. Reads skill level from Clerk publicMetadata
 // (no separate profile fetch, no user_profiles table). Until onboarding sets
 // it, the onboarding step is shown instead of the app.
 export function AuthedApp() {
   const { isLoaded, user } = useUser();
+  // useChessGame() is called once here (not inside BoardView) so CHESS-006's
+  // eval bar can be added as a sibling of BoardView sharing this same
+  // instance, instead of creating an independent, driftable chess.js game.
+  const game = useChessGame();
 
   if (!isLoaded) {
     return (
@@ -27,14 +33,8 @@ export function AuthedApp() {
         <span className="font-display text-xl font-bold text-primary">Squire</span>
         <UserButton />
       </header>
-      <main className="flex flex-col items-center justify-center gap-3 p-8 text-center">
-        <h1 className="font-display text-4xl font-bold text-primary">
-          Welcome back
-        </h1>
-        <p className="max-w-md text-muted-foreground">
-          You're signed in as a {skillLevel} player. AI-powered coaching features
-          arrive in the tickets ahead.
-        </p>
+      <main className="flex flex-col items-center gap-6 p-8">
+        <BoardView game={game} />
       </main>
     </div>
   );

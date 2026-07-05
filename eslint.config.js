@@ -33,5 +33,18 @@ export default tseslint.config(
       globals: globals.node,
     },
   },
+  {
+    // Backend runs under Node, not the browser.
+    files: ["server/**/*.ts"],
+    languageOptions: {
+      globals: globals.node,
+    },
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
+    },
+  },
   prettier,
 );

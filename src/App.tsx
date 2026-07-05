@@ -1,12 +1,20 @@
+import { Show } from "@clerk/react";
+import { SignedOutView } from "@/auth/SignedOutView";
+import { AuthedApp } from "@/auth/AuthedApp";
+
+// Auth gating uses Clerk's <Show when="signed-in"> / <Show when="signed-out">.
+// The old <SignedIn>/<SignedOut>/<Protect> components are removed exports as of
+// @clerk/react v6 (Core 3) — do not use them. See .claude/context/frontend-engineer.md.
 function App() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-3 p-8 text-center">
-      <h1 className="font-display text-4xl font-bold text-primary">Squire</h1>
-      <p className="max-w-md text-muted-foreground">
-        AI-powered chess coaching. Project scaffold is up — features arrive in
-        the tickets ahead.
-      </p>
-    </main>
+    <>
+      <Show when="signed-out">
+        <SignedOutView />
+      </Show>
+      <Show when="signed-in">
+        <AuthedApp />
+      </Show>
+    </>
   );
 }
 

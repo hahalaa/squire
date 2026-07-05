@@ -25,4 +25,9 @@ export const corsOptions: CorsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
+  // Frontend (Vercel) and backend (Render) are separate origins. The Clerk
+  // session reaches the API as an `Authorization: Bearer` header via the React
+  // SDK's getToken(), so that header must be explicitly allowed cross-origin
+  // rather than left to the cors package's request-reflection default.
+  allowedHeaders: ["Content-Type", "Authorization"],
 };

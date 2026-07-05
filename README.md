@@ -22,7 +22,7 @@ Most "endgame trainers" either hand you the engine's answer or grade you
 against it move-by-move — which punishes the systematic, repeatable
 technique that's the entire point of learning an endgame in the first
 place. Squire's drills are refereed silently by a tablebase and graded on
-whether you *kept the win* (or held the draw), not on whether you found
+whether you _kept the win_ (or held the draw), not on whether you found
 the engine's fastest mate. Every checkmate is a win, full stop. Curated
 classics (Lucena, Philidor, Vancura, and more) sit alongside infinite
 procedurally-generated, tablebase-verified practice positions, so you
@@ -31,7 +31,7 @@ never run out of reps.
 ## Understand your own games, in plain English
 
 Upload a PGN or import from Lichess/Chess.com. Stockfish finds the
-moments that mattered; an LLM coaching layer explains *why* — calibrated
+moments that mattered; an LLM coaching layer explains _why_ — calibrated
 to your skill level, so a beginner and a titled player get genuinely
 different explanations rather than the same analysis at different
 lengths.
@@ -41,4 +41,4 @@ lengths.
 **Built with:** React · TypeScript · Stockfish (WASM) · chess.js ·
 Clerk · Drizzle + Turso · Ollama / Claude API
 
-**Status:** Actively building — Phase 1: Foundation & Identity (CHESS-001 just completed, CHESS-002 next)
+**Status:** Actively building - Phase 1: Foundation & Identity (CHESS-002 just completed, CHESS-003 next)

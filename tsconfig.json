@@ -3,7 +3,8 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.server.json" }
+    { "path": "./tsconfig.server.json" },
+    { "path": "./tsconfig.worker.json" }
   ],
   // This root config compiles nothing itself ("files": []) — actual
   // type-checking happens in the referenced configs above, each with its

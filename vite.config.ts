@@ -10,4 +10,10 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  // 'iife' (classic script) is Vite's actual current default, but pinned
+  // explicitly and defensively — see frontend-engineer.md's "Stockfish
+  // setup". stockfish.worker.ts relies on classic-script worker loading.
+  worker: {
+    format: "iife",
+  },
 });

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useUser, UserButton } from "@clerk/react";
 import { Onboarding } from "@/auth/Onboarding";
 import { BoardView } from "@/board/BoardView";
@@ -12,6 +13,12 @@ export function AuthedApp() {
   // eval bar can be added as a sibling of BoardView sharing this same
   // instance, instead of creating an independent, driftable chess.js game.
   const game = useChessGame();
+  // Orientation is a pure view concern, not chess state — kept separate from
+  // useChessGame()/ChessGame so CHESS-007's useGameState() doesn't inherit a
+  // UI concern when it absorbs useChessGame(). BoardView and EvalBar both
+  // read this same flip state so the eval bar's fill direction never
+  // contradicts which side is visually on top/bottom.
+  const [orientation, setOrientation] = useState<"white" | "black">("white");
 
   if (!isLoaded) {
     return (
@@ -34,7 +41,11 @@ export function AuthedApp() {
         <UserButton />
       </header>
       <main className="flex flex-col items-center gap-6 p-8">
-        <BoardView game={game} />
+        <BoardView
+          game={game}
+          orientation={orientation}
+          onFlipOrientation={() => setOrientation((o) => (o === "white" ? "black" : "white"))}
+        />
       </main>
     </div>
   );

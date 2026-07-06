@@ -37,5 +37,9 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  // src/workers has its own tsconfig.worker.json (WebWorker lib, not DOM) —
+  // DOM and WebWorker both declare an incompatible global `self`, so a
+  // worker file can't type-check correctly under both in one program.
+  "exclude": ["src/workers"]
 }

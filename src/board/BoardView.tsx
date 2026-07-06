@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import type { ChessGame } from "@/board/useChessGame";
 import { PromotionDialog } from "@/board/PromotionDialog";
 import { PIECE_GLYPHS } from "@/board/pieceGlyphs";
+import { EvalBar } from "@/board/EvalBar";
 
 const LAST_MOVE_STYLE: React.CSSProperties = {
   backgroundColor: "rgba(201, 168, 76, 0.25)",
@@ -20,10 +21,15 @@ const LEGAL_TARGET_STYLE: React.CSSProperties = {
 
 interface BoardViewProps {
   game: ChessGame;
+  // Orientation is a pure view concern (chess.js/ChessGame has no notion of
+  // it) — lifted to AuthedApp.tsx as its own state, alongside useChessGame(),
+  // and passed down here so EvalBar can share the same flip state as the
+  // board without either owning it.
+  orientation: "white" | "black";
+  onFlipOrientation: () => void;
 }
 
-export function BoardView({ game }: BoardViewProps) {
-  const [orientation, setOrientation] = useState<"white" | "black">("white");
+export function BoardView({ game, orientation, onFlipOrientation }: BoardViewProps) {
   const [selectedSquare, setSelectedSquare] = useState<Square | null>(null);
 
   const {
@@ -112,6 +118,10 @@ export function BoardView({ game }: BoardViewProps) {
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
+      <div className="flex items-center">
+        <EvalBar game={game} orientation={orientation} />
+      </div>
+
       <div className="flex flex-col items-center gap-3">
         <GameStatus
           isGameOver={isGameOver}
@@ -125,7 +135,7 @@ export function BoardView({ game }: BoardViewProps) {
         <div className="w-full max-w-[480px]">
           <Chessboard options={options} />
         </div>
-        <Button variant="secondary" onClick={() => setOrientation((o) => (o === "white" ? "black" : "white"))}>
+        <Button variant="secondary" onClick={onFlipOrientation}>
           Flip board
         </Button>
       </div>

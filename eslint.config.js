@@ -34,6 +34,13 @@ export default tseslint.config(
     },
   },
   {
+    // Worker files run in a dedicated worker global scope, not the window.
+    files: ["src/workers/**/*.ts"],
+    languageOptions: {
+      globals: globals.worker,
+    },
+  },
+  {
     // Backend runs under Node, not the browser.
     files: ["server/**/*.ts"],
     languageOptions: {

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import type { PendingPromotion, PromotionPiece } from "@/board/useChessGame";
+import type { PendingPromotion, PromotionPiece } from "@/board/useGameState";
 
 const PROMOTION_CHOICES: { piece: PromotionPiece; label: string }[] = [
   { piece: "q", label: "Queen" },

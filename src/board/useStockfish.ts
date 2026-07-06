@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { ChessGame } from "@/board/useChessGame";
+import type { GameState } from "@/board/useGameState";
 import type { StockfishRequest, StockfishResponse } from "@/workers/stockfish.worker";
 
 const SEARCH_DEPTH = 15;
@@ -12,8 +12,8 @@ export type StockfishState =
   | { status: "error" };
 
 /**
- * Evaluates the position from `game` (the same ChessGame instance shared
- * with BoardView — never a second useChessGame() call) at a fixed depth of
+ * Evaluates the position from `game` (the same GameState instance shared
+ * with BoardView — never a second useGameState() call) at a fixed depth of
  * 15, debounced to move completion: a new evaluation is only requested when
  * `game.fen` actually changes, and an in-flight search is stopped rather
  * than queued if a new move arrives before it finishes.
@@ -27,7 +27,7 @@ export type StockfishState =
  * both are terminal for this hook instance, since there's no engine left
  * to recover a search from.
  */
-export function useStockfish(game: ChessGame): StockfishState {
+export function useStockfish(game: GameState): StockfishState {
   const [state, setState] = useState<StockfishState>({ status: "loading" });
   const workerRef = useRef<Worker | null>(null);
   const turnRef = useRef(game.turn);

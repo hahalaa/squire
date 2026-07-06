@@ -11,7 +11,7 @@ export type PendingPromotion = {
 
 export type CapturedPieces = Record<Color, PieceSymbol[]>;
 
-export interface ChessGame {
+export interface GameState {
   fen: string;
   turn: Color;
   history: Move[];
@@ -34,13 +34,13 @@ export interface ChessGame {
 }
 
 /**
- * Ticket-local game state for CHESS-005. CHESS-007 absorbs this into the
- * shared useGameState() hook — this is a deliberate placeholder, not a
- * permanent architecture decision. CHESS-006 (eval bar) must consume the
- * same ChessGame instance returned here rather than creating its own
- * chess.js instance, or the two will drift out of sync.
+ * Canonical chess game state, called exactly once in AuthedApp.tsx and
+ * passed down as a prop to every component that needs it (BoardView,
+ * EvalBar via useStockfish). Board orientation is deliberately NOT part of
+ * this hook (see AuthedApp.tsx) — it's a pure view concern chess.js has no
+ * notion of, kept as its own sibling state.
  */
-export function useChessGame(initialFen?: string): ChessGame {
+export function useGameState(initialFen?: string): GameState {
   const [chess] = useState(() => new Chess(initialFen));
   const [fen, setFen] = useState(chess.fen());
   const [history, setHistory] = useState<Move[]>([]);

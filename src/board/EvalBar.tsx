@@ -1,10 +1,10 @@
-import type { ChessGame } from "@/board/useChessGame";
+import type { GameState } from "@/board/useGameState";
 import { useStockfish, type EvalScore } from "@/board/useStockfish";
 
 const CP_CLAMP = 1000; // ±10 pawns fills the bar
 
 interface EvalBarProps {
-  game: ChessGame;
+  game: GameState;
   orientation: "white" | "black";
 }
 

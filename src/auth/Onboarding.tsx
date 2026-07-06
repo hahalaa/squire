@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { useUser } from "@clerk/react";
 import { useApi } from "@/lib/api";
+import type { SkillLevel } from "@/shared/skillLevel";
 
-// Skill levels — kept in sync with the backend enum in server/validation/me.ts
-// (the single source of truth is Clerk publicMetadata.skillLevel; there is no
-// user_profiles table).
-const SKILL_LEVELS = [
+// Display copy for each skill level choice. `value` is kept structurally
+// identical to shared/skillLevel.ts's SkillLevel union (single source of
+// truth for the literal values); this array only adds label/blurb.
+const SKILL_LEVELS: { value: SkillLevel; label: string; blurb: string }[] = [
   { value: "beginner", label: "Beginner", blurb: "Learning how the pieces move and basic tactics." },
   { value: "intermediate", label: "Intermediate", blurb: "Comfortable with tactics; building opening and endgame knowledge." },
   { value: "advanced", label: "Advanced", blurb: "Strong club player refining strategy and preparation." },
   { value: "expert", label: "Expert", blurb: "Tournament-strength; sharpening the finer points." },
-] as const;
-
-type SkillLevel = (typeof SKILL_LEVELS)[number]["value"];
+];
 
 // Shown once, right after sign-up, when publicMetadata.skillLevel is unset.
 // Writes the choice through the backend (which calls the Clerk Backend API),

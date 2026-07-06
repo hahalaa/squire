@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Chessboard, type ChessboardOptions } from "react-chessboard";
 import type { Color, Move, Square } from "chess.js";
 import { Button } from "@/components/ui/button";
-import type { ChessGame } from "@/board/useChessGame";
+import type { GameState } from "@/board/useGameState";
 import { PromotionDialog } from "@/board/PromotionDialog";
 import { PIECE_GLYPHS } from "@/board/pieceGlyphs";
 import { EvalBar } from "@/board/EvalBar";
@@ -20,9 +20,9 @@ const LEGAL_TARGET_STYLE: React.CSSProperties = {
 };
 
 interface BoardViewProps {
-  game: ChessGame;
-  // Orientation is a pure view concern (chess.js/ChessGame has no notion of
-  // it) — lifted to AuthedApp.tsx as its own state, alongside useChessGame(),
+  game: GameState;
+  // Orientation is a pure view concern (chess.js/GameState has no notion of
+  // it) — lifted to AuthedApp.tsx as its own state, alongside useGameState(),
   // and passed down here so EvalBar can share the same flip state as the
   // board without either owning it.
   orientation: "white" | "black";

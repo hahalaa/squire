@@ -53,10 +53,21 @@ describe("detectConcepts", () => {
     expect(detectConcepts(fen).filter((c) => c.type === "bishopPair")).toHaveLength(0);
   });
 
-  it("runs in under 5ms on a standard starting position", () => {
+  it("runs in under 5ms (averaged) on a realistic midgame position", () => {
+    // A ~20-ply Najdorf middlegame — a full board with real pawn structure
+    // to scan for passed/isolated/doubled pawns, open files and holes,
+    // rather than the near-best-case starting position.
     const chess = new Chess();
+    for (const san of [
+      "e4", "c5", "Nf3", "d6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "a6",
+      "Be2", "e5", "Nb3", "Be7", "O-O", "O-O", "Be3", "Be6", "Nd5", "Nbd7",
+    ]) {
+      chess.move(san);
+    }
+    const fen = chess.fen();
+    const iterations = 100;
     const start = performance.now();
-    detectConcepts(chess.fen());
-    expect(performance.now() - start).toBeLessThan(5);
+    for (let i = 0; i < iterations; i++) detectConcepts(fen);
+    expect((performance.now() - start) / iterations).toBeLessThan(5);
   });
 });

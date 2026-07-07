@@ -16,6 +16,12 @@ import { openingRouter } from "./routes/opening.js";
 // The fully-wired Express app, exported WITHOUT calling listen() so tests can
 // drive it via supertest's request(app) through the real middleware chain.
 // server/index.ts imports this and owns the listen() call.
+//
+// This module does NOT import 'dotenv/config' itself — it relies on its importer
+// loading env first: server/index.ts imports 'dotenv/config' before this, and
+// the test setup (server/test/env-setup.ts) populates env before importing app.
+// Any FUTURE second production entry point that imports this module must load
+// 'dotenv/config' before it too, or env.ts will read undefined and exit(1).
 export const app = express();
 
 app.set("trust proxy", process.env.TRUST_PROXY_HOPS || false);

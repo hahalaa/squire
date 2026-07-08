@@ -10,7 +10,7 @@ the whole board covered.
 
 ## Drill your repertoire, not just your memory
 
-To help you combat the forgetting curve, we implement a science-based spaced-repetition (SM-2) opening trainer tailored to your needs. For more information on what spaced-repetition is, read this: https://en.wikipedia.org/wiki/Spaced_repetition. Build a repertoire, save the lines you actually play, and let Squire tell you what's due today.
+Squire uses science-backed spaced repetition (SM-2) to help you remember the lines you actually play. Build your repertoire, save your openings, and let Squire tell you exactly what to review each day.
 
 ## Learn endgames the way a strong player actually learns them
 

@@ -8,11 +8,11 @@ Most opening trainers stop at openings. Most endgame content is a snoozefest to 
 Squire is built to actually close the loop across all three phases of a game. We've got
 the whole board covered.
 
-## Drill your repertoire, not just your memory
+### Drill your repertoire, not just your memory
 
 Squire uses science-backed spaced repetition (SM-2) to help you remember the lines you actually play. Build your repertoire, save your openings, and let Squire tell you exactly what to review each day.
 
-## Learn endgames the way a strong player actually learns them
+### Learn endgames the way a strong player actually learns them
 
 Most "endgame trainers" either hand you the engine's answer or grade you
 against it move-by-move - which punishes the systematic, repeatable
@@ -24,7 +24,7 @@ classics (Lucena, Philidor, Vancura, and more) sit alongside infinite
 procedurally-generated, tablebase-verified practice positions, so you
 never run out of ways to refine your endgame.
 
-## Understand your own games, in plain English
+### Understand your own games, in plain English
 
 Upload a PGN or import from Lichess/Chess.com. Stockfish finds the
 moments that mattered; our in-house LLM will explain _why_. Obviously, we value

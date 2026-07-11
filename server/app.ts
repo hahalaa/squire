@@ -12,6 +12,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { healthRouter } from "./routes/health.js";
 import { meRouter } from "./routes/me.js";
 import { openingRouter } from "./routes/opening.js";
+import { repertoireRouter } from "./routes/repertoire.js";
 
 // The fully-wired Express app, exported WITHOUT calling listen() so tests can
 // drive it via supertest's request(app) through the real middleware chain.
@@ -51,5 +52,6 @@ app.use(clerkMiddleware({ publishableKey: env.VITE_CLERK_PUBLISHABLE_KEY }));
 app.use("/api", healthRouter);
 app.use("/api", meRouter);
 app.use("/api", openingRouter);
+app.use("/api", repertoireRouter);
 
 app.use(errorHandler);

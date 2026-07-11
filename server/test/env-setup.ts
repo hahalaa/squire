@@ -15,6 +15,10 @@ const TEST_ENV_DEFAULTS: Record<string, string> = {
   VITE_CLERK_PUBLISHABLE_KEY: "pk_test_placeholder",
   LICHESS_OAUTH_CLIENT_ID: "squire-test",
   LICHESS_OAUTH_REDIRECT_URI: "http://localhost:5173/oauth/lichess",
+  // In-memory libSQL so importing any server module (app.ts now transitively
+  // imports server/db) never opens or writes a real DB file during tests. The
+  // repertoire route tests migrate this in-memory DB and drive it directly.
+  TURSO_CONNECTION_URL: ":memory:",
 };
 
 for (const [key, value] of Object.entries(TEST_ENV_DEFAULTS)) {

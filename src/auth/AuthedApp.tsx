@@ -1,24 +1,18 @@
-import { useState } from "react";
 import { useUser, UserButton } from "@clerk/react";
+import { NavLink, Route, Routes } from "react-router-dom";
 import { Onboarding } from "@/auth/Onboarding";
-import { BoardView } from "@/board/BoardView";
-import { useGameState } from "@/board/useGameState";
+import { PlayView } from "@/board/PlayView";
+import { RepertoireBrowser } from "@/repertoire/RepertoireBrowser";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { cn } from "@/lib/utils";
 
 // Rendered for signed-in users. Reads skill level from Clerk publicMetadata
 // (no separate profile fetch, no user_profiles table). Until onboarding sets
-// it, the onboarding step is shown instead of the app.
+// it, the onboarding step is shown instead of the app. This is the authed
+// shell: a header with view navigation plus the routed views (routing added at
+// CHESS-009 Phase 2 to surface the repertoire browser alongside free play).
 export function AuthedApp() {
   const { isLoaded, user } = useUser();
-  // useGameState() is called once here (not inside BoardView) so the eval
-  // bar can be added as a sibling of BoardView sharing this same instance,
-  // instead of creating an independent, driftable chess.js game.
-  const game = useGameState();
-  // Orientation is a pure view concern, not chess state — deliberately kept
-  // separate from useGameState()/GameState, since chess.js has no notion of
-  // which way a board is drawn. BoardView and EvalBar both read this same
-  // flip state so the eval bar's fill direction never contradicts which
-  // side is visually on top/bottom.
-  const [orientation, setOrientation] = useState<"white" | "black">("white");
 
   if (!isLoaded) {
     return (
@@ -37,16 +31,55 @@ export function AuthedApp() {
   return (
     <div className="min-h-screen">
       <header className="flex items-center justify-between border-b border-secondary p-4">
-        <span className="font-display text-xl font-bold text-primary">Squire</span>
+        <div className="flex items-center gap-6">
+          <span className="font-display text-xl font-bold text-primary">Squire</span>
+          <nav className="flex gap-1">
+            <NavItem to="/">Play</NavItem>
+            <NavItem to="/repertoires">Repertoires</NavItem>
+          </nav>
+        </div>
         <UserButton />
       </header>
-      <main className="flex flex-col items-center gap-6 p-8">
-        <BoardView
-          game={game}
-          orientation={orientation}
-          onFlipOrientation={() => setOrientation((o) => (o === "white" ? "black" : "white"))}
-        />
+      <main className="p-4 sm:p-8">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="flex justify-center">
+                <PlayView />
+              </div>
+            }
+          />
+          <Route
+            path="/repertoires"
+            element={
+              <ErrorBoundary label="The repertoire browser hit an error">
+                <RepertoireBrowser />
+              </ErrorBoundary>
+            }
+          />
+        </Routes>
       </main>
     </div>
+  );
+}
+
+function NavItem({ to, children }: { to: string; children: React.ReactNode }) {
+  return (
+    <NavLink
+      to={to}
+      // `end` so "/" isn't marked active while on /repertoires.
+      end={to === "/"}
+      className={({ isActive }) =>
+        cn(
+          "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+          isActive
+            ? "bg-secondary text-secondary-foreground"
+            : "text-muted-foreground hover:text-foreground",
+        )
+      }
+    >
+      {children}
+    </NavLink>
   );
 }
